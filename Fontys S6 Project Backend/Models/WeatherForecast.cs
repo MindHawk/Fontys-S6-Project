@@ -1,4 +1,4 @@
-namespace Fontys_S6_Project_Backend;
+namespace Fontys_S6_Project_Backend.Models;
 
 public class WeatherForecast
 {

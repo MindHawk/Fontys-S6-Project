@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using Fontys_S6_Project_Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fontys_S6_Project_Backend.Controllers;
