@@ -1,5 +1,7 @@
+using Fontys_S6_Project_Backend.Data;
 using Fontys_S6_Project_Backend.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fontys_S6_Project_Backend.Controllers;
 
@@ -8,20 +10,27 @@ namespace Fontys_S6_Project_Backend.Controllers;
 public class RoomController : ControllerBase
 {
     private readonly ILogger<RoomController> _logger;
+    private readonly HotelContext _context;
 
-    public RoomController(ILogger<RoomController> logger)
+    public RoomController(ILogger<RoomController> logger, HotelContext context)
     {
         _logger = logger;
+        _context = context;
+        context.Database.Migrate();
+    }
+    
+    [HttpPost(Name = "PostRoom")]
+    public async Task<ActionResult<Room>> Post(Room room)
+    {
+        _context.Rooms.Add(room);
+        await _context.SaveChangesAsync();
+
+        return Created("GetRoom", room);
     }
 
     [HttpGet(Name = "GetRooms")]
-    public IEnumerable<Room> Get()
+    public async Task<IEnumerable<Room>> Get()
     {
-        return Enumerable.Range(1, 5).Select(index => new Room
-            {
-                RoomID = index,
-                RoomSize = Random.Shared.Next(1, 5),
-            })
-            .ToArray();
+        return await _context.Rooms.ToListAsync();
     }
 }
