@@ -13,20 +13,19 @@ services:
       restart: always
       ports:
         - "8055:8080"
-#    db: 
-#      image: "mcr.microsoft.com/mssql/server"
-#      environment:
-#        SA_PASSWORD: "HELLOthere123"
-#        ACCEPT_EULA: "Y"
     backend:
       depends_on:
         - db
       restart: always
       build:
-        context: "."
-        dockerfile: "Fontys S6 Project Backend/Dockerfile"
+        context: "./backend"
       environment:
         ASPNETCORE_ENVIRONMENT: "Development"
         Logging__Console__FormatterName: "simple"
       ports:
         - "8050:80"
+    frontend:
+      build:
+        context: "./frontend"
+      ports:
+        - "8040:8080"
