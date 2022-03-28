@@ -5,6 +5,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("HotelPolicy",
+        b =>
+        {
+            b.WithOrigins("http://localhost:8080","http://localhost:8040").AllowAnyHeader().AllowAnyMethod();
+        });
+});
+
 string connectionString = builder.Configuration.GetConnectionString("PostgresConnectionString");
 builder.Services.AddDbContext<HotelContext>(x => x.UseNpgsql(connectionString));
 
@@ -23,6 +32,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.UseAuthorization();
 
