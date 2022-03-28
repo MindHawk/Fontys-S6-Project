@@ -2,6 +2,7 @@ version: "3.7"
 
 services:
     db:
+      container_name: db
       image: postgres
       restart: always
       environment:
@@ -9,11 +10,13 @@ services:
       ports:
         - "5432:5432"
     adminer:
+      container_name: adminer
       image: adminer
       restart: always
       ports:
         - "8055:8080"
     backend:
+      container_name: backend
       depends_on:
         - db
       restart: always
@@ -26,6 +29,7 @@ services:
       ports:
         - "8050:80"
     frontend:
+      container_name: frontend
       build:
         context: "./frontend"
       ports:
