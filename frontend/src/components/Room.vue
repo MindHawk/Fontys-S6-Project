@@ -1,23 +1,6 @@
 <script>
 export default {
   data(){
-    /*
-    public class Room
-{
-    public int RoomID { get; set; }
-    public int RoomSize { get; set; }
-    public bool RoomOccupied { get; set; }
-}
-
-    [HttpPost(Name = "PostRoom")]
-    public async Task<ActionResult<Room>> Post(Room room)
-    {
-        _context.Rooms.Add(room);
-        await _context.SaveChangesAsync();
-
-        return Created("GetRoom", room);
-    }
-    */
     return {
       rooms: [],
       room_size: 0,
