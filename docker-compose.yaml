@@ -21,8 +21,7 @@ services:
         - db
       restart: always
       build:
-        context: "./backend"
-        dockerfile: "Fontys S6 Project Backend/Dockerfile"
+        context: "./backend/Fontys S6 Project Backend"
       environment:
         ASPNETCORE_ENVIRONMENT: "Development"
         Logging__Console__FormatterName: "simple"
