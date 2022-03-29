@@ -36,8 +36,7 @@ public class RoomController : ControllerBase
         return await _context.Rooms.ToListAsync();
     }
     
-    [HttpDelete(Name = "DeleteRoom")]
-    [Route("{id:int}")]
+    [HttpDelete(Name = "DeleteRoom/{id:int}")]
     public async Task<ActionResult<Room>> Delete(int id)
     {
         var room = await _context.Rooms.FindAsync(id);
