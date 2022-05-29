@@ -1,4 +1,7 @@
-using HotelService.Data;
+using HotelServiceDAL;
+using HotelServiceDAL.Context;
+using HotelServiceLogic;
+using HotelModels.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +19,9 @@ builder.Services.AddCors(options =>
 
 string connectionString = builder.Configuration.GetConnectionString("PostgresConnectionString");
 builder.Services.AddDbContext<HotelContext>(x => x.UseNpgsql(connectionString));
+
+builder.Services.AddScoped<IHotelRepository, HotelRepository>();
+builder.Services.AddScoped<IHotelLogic, HotelLogic>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -1,7 +1,7 @@
-using HotelService.Models;
+using HotelModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace HotelService.Data;
+namespace HotelServiceDAL.Context;
 
 public class HotelContext : DbContext
 {
@@ -10,4 +10,5 @@ public class HotelContext : DbContext
     }
 
     public DbSet<Room> Rooms { get; set; }
+    public DbSet<Hotel> Hotels { get; set; }
 }

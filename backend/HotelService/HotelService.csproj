@@ -17,4 +17,10 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\HotelModels\HotelModels.csproj" />
+      <ProjectReference Include="..\HotelServiceDAL\HotelServiceDAL.csproj" />
+      <ProjectReference Include="..\HotelServiceLogic\HotelServiceLogic.csproj" />
+    </ItemGroup>
+
 </Project>

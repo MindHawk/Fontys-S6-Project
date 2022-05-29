@@ -1,5 +1,6 @@
-using HotelService.Data;
-using HotelService.Models;
+using HotelServiceDAL.Context;
+using HotelModels;
+using HotelServiceLogic;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,20 +13,18 @@ namespace HotelService.Controllers;
 public class RoomController : ControllerBase
 {
     private readonly ILogger<RoomController> _logger;
-    private readonly HotelContext _context;
+    private readonly HotelLogic _hotelLogic;
 
-    public RoomController(ILogger<RoomController> logger, HotelContext context)
+    public RoomController(ILogger<RoomController> logger, HotelLogic hotelLogic)
     {
         _logger = logger;
-        _context = context;
-        context.Database.Migrate();
+        _hotelLogic = hotelLogic;
     }
-    
+
     [HttpPost(Name = "PostRoom")]
     public async Task<ActionResult<Room>> Post(Room room)
     {
-        _context.Rooms.Add(room);
-        await _context.SaveChangesAsync();
+        _hotelLogic.AddRoom(room);
 
         return Created("GetRoom", room);
     }
@@ -33,20 +32,14 @@ public class RoomController : ControllerBase
     [HttpGet(Name = "GetRooms")]
     public async Task<IEnumerable<Room>> Get()
     {
-        return await _context.Rooms.ToListAsync();
+        return _hotelLogic.GetAllRooms();
     }
     
     [HttpDelete(Name = "DeleteRoom/{id:int}")]
     public async Task<ActionResult<Room>> Delete(int id)
     {
-        var room = await _context.Rooms.FindAsync(id);
-        if (room == null)
-        {
-            return NotFound();
-        }
-
-        _context.Rooms.Remove(room);
-        await _context.SaveChangesAsync();
+        Room room = _hotelLogic.GetRoomById(id);
+        _hotelLogic.DeleteRoom(id);
 
         return room;
     }
