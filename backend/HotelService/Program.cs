@@ -18,7 +18,9 @@ builder.Services.AddCors(options =>
 });
 
 string connectionString = builder.Configuration.GetConnectionString("PostgresConnectionString");
-builder.Services.AddDbContext<HotelContext>(x => x.UseNpgsql(connectionString));
+builder.Services.AddDbContext<HotelContext>(options => options.UseNpgsql(
+    connectionString, 
+    x => x.MigrationsAssembly("HotelService")));
 
 builder.Services.AddScoped<IHotelRepository, HotelRepository>();
 builder.Services.AddScoped<IHotelLogic, HotelLogic>();

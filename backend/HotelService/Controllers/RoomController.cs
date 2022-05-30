@@ -1,5 +1,6 @@
 using HotelServiceDAL.Context;
 using HotelModels;
+using HotelModels.Interfaces;
 using HotelServiceLogic;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -13,9 +14,9 @@ namespace HotelService.Controllers;
 public class RoomController : ControllerBase
 {
     private readonly ILogger<RoomController> _logger;
-    private readonly HotelLogic _hotelLogic;
+    private readonly IHotelLogic _hotelLogic;
 
-    public RoomController(ILogger<RoomController> logger, HotelLogic hotelLogic)
+    public RoomController(ILogger<RoomController> logger, IHotelLogic hotelLogic)
     {
         _logger = logger;
         _hotelLogic = hotelLogic;

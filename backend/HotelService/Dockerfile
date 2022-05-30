@@ -5,10 +5,18 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["HotelService.csproj", "HotelService/"]
+COPY ["HotelService/HotelService.csproj", "HotelService/"]
+COPY ["HotelModels/HotelModels.csproj", "HotelModels/"]
+COPY ["HotelServiceDAL/HotelServiceDAL.csproj", "HotelServiceDAL/"]
+COPY ["HotelServiceLogic/HotelServiceLogic.csproj", "HotelServiceLogic/"]
 WORKDIR "/src/HotelService"
 RUN dotnet restore "HotelService.csproj"
-COPY . .
+WORKDIR /src
+COPY "./HotelService" "HotelService"
+COPY "./HotelModels" "HotelModels"
+COPY "./HotelServiceDAL" "HotelServiceDAL"
+COPY "./HotelServiceLogic" "HotelServiceLogic"
+WORKDIR "/src/HotelService"
 RUN dotnet build "HotelService.csproj" -c Release -o /app/build
 
 FROM build AS publish

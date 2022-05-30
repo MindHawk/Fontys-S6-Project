@@ -15,7 +15,8 @@ services:
         - hotel_db
       restart: always
       build:
-        context: "./backend/HotelService"
+        context: "./backend"
+        dockerfile: "HotelService/Dockerfile"
       environment:
         ASPNETCORE_ENVIRONMENT: "Development"
         Logging__Console__FormatterName: "simple"
